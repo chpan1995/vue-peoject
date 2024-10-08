@@ -20,9 +20,28 @@ app.use(router);
 app.use(store);
 app.mount('#app');
 
-const test = () => {
-  console.log('123');
-  console.log(import.meta.env.VITE_APP_TITLE)
-};
+// const test = () => {
+//   console.log('123');
+//   console.log(import.meta.env.VITE_APP_TITLE)
+// };
 
-test();
+// test();
+type Fish = { swim: () => void };
+type Bird = { fly: () => void };
+type Human = { swim?: () => void; fly?: () => void };
+
+function move(animal: Fish | Bird | Human) {
+  if ("swim" in animal) {
+      animal.swim!();
+//  ^?
+  } else {
+    animal;
+//  ^?
+  }
+}
+let fish:Fish = {
+  swim:()=>{
+    console.log('11111');
+  }
+}
+move(fish);
