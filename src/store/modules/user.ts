@@ -3,12 +3,14 @@ import { reqlogin } from '@/api/user'
 import type {loginForm} from '@/api/user'
 import type { loginResponseData } from '@/api/user/type'
 import type { UserState } from '@/store/modules/type'
+import { constantRoute } from '@/router/router'
 // 创建用户小仓库
 const useSserStore = defineStore('User',
     {
         state: ():UserState => {
             return {
-                token: localStorage.getItem('TOKEN')
+                token: localStorage.getItem('TOKEN'),
+                menuRoutes: constantRoute, //仓库存储生成菜单需要数组（路由）
             }
         },
         actions: {

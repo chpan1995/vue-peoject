@@ -64,7 +64,7 @@ const rules = reactive<FormRules>({
 let loginForms=ref();
 
 async function login(){
-    await loginForms.value().validate();
+    await loginForms.value.validate();
     loading.value=true
     try {
        await useStore.userLogin(loginForm);
