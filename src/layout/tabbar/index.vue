@@ -1,13 +1,14 @@
 <template>
     <div class="tabbar">
         <div class="tabbar_left">
-            <el-icon>
-                <Expand></Expand>
+            <el-icon style="margin: 10px;" @click="expandOr">
+                <component :is="!SettingStore.fold ? 'Expand' : 'Fold'"></component>
             </el-icon>
 
             <el-breadcrumb :separator-icon="ArrowRight">
-                <el-breadcrumb-item v-for="(item,index) in $useRoute.matched" :key="index" v-show="item.meta.title" >
-                    {{item.meta.title}}
+                <el-breadcrumb-item v-for="(item, index) in $useRoute.matched" :key="index" v-show="item.meta.title"
+                    :to="item.path">
+                    {{ item.meta.title }}
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
@@ -16,17 +17,38 @@
             <el-button icon="Refresh" circle></el-button>
             <el-button icon="FullScreen" circle></el-button>
             <el-button icon="Setting" circle></el-button>
+
+            <img src="/logo.png" style="width: 40px;height: 40px; margin-left: 20px; margin-right: 5px;">
+
+            <el-dropdown trigger="click">
+                <span class="el-dropdown-link">
+                    系统设置
+                    <el-icon class="el-icon--right">
+                        <arrow-down />
+                    </el-icon>
+                </span>
+                <template #dropdown>
+                    <el-dropdown-menu>
+                        <el-dropdown-item>退出登录</el-dropdown-item>
+                    </el-dropdown-menu>
+                </template>
+            </el-dropdown>
         </div>
 
     </div>
 </template>
 
 <script setup lang="ts">
-import { Expand, Refresh, FullScreen, Setting,ArrowRight } from '@element-plus/icons-vue';
+import { Expand, Refresh, FullScreen, Setting, ArrowRight, Fold } from '@element-plus/icons-vue';
 import { useRoute } from 'vue-router'
+import useLayOutSettingStore from '@/store/modules/setting.ts'
 
-let $useRoute=useRoute();
+let SettingStore = useLayOutSettingStore();
+let $useRoute = useRoute();
 
+let expandOr = () => {
+    SettingStore.fold = !SettingStore.fold
+}
 
 </script>
 
@@ -36,6 +58,8 @@ let $useRoute=useRoute();
     height: 100%;
     display: flex;
     justify-content: space-between;
+
+    background: linear-gradient(to right, rgb(247, 243, 243) , rgb(250, 229, 229), rgb(245, 243, 243) );
 
     .tabbar_left {
         display: flex;
@@ -55,8 +79,9 @@ let $useRoute=useRoute();
             margin: 20px;
             font-size: 18px;
         }
-        .el-breadcrumb-item{
-            vertical-align: middle;
+
+        .el-breadcrumb__item {
+            height: 24px;
         }
     }
 

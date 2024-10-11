@@ -1,19 +1,20 @@
 <template>
     <div class="layout_container">
-        <div class="layout_slider">
+        <div class="layout_slider" :class="{fold: SettingStore.fold}">
             <Logo></Logo>
             <!-- el-menu 包在里面递归后应该是两个el-menu le -->
-            <el-menu :default-active="$router.path" active-text-color="#ffd04b" text-color="white" class="elmenu">
+            <el-menu :collapse="SettingStore.fold" :default-active="$router.path" background-color="#001529"
+            active-text-color="#ffd04b" text-color="white" class="elmenu" >
                 <Menu :menu-list="useStore.menuRoutes"></Menu>
             </el-menu>
         </div>
 
-        <div class="layout_tabbar"> 
+        <div class="layout_tabbar" :class="{fold_tab: SettingStore.fold}"> 
             <tabbar></tabbar>
         </div>
             
         <!-- 内容展示区域 -->
-        <div class="layout_main">
+        <div class="layout_main" :class="{fold_main: SettingStore.fold}">
 
             <router-view v-slot="{ Component }">
                 <transition name="fade">
@@ -34,9 +35,12 @@ import Menu from './menu/index.vue'
 import useSserStore from '@/store/modules/user'
 import tabbar from './tabbar/index.vue'
 import { useRoute } from 'vue-router';
+import  useLayOutSettingStore  from '@/store/modules/setting.ts'
+
 let $router=useRoute();
 let useStore = useSserStore();
-console.log(useStore.menuRoutes);
+let SettingStore = useLayOutSettingStore();
+
 </script>
 
 
@@ -50,6 +54,10 @@ console.log(useStore.menuRoutes);
         width: $base-menu-width;
         height: 100vh;
         background-color: $base-menu-background;
+        transition: all 0.3s;
+        &.fold{
+        width: 60px;
+    }
     }
 
     .layout_tabbar {
@@ -58,7 +66,13 @@ console.log(useStore.menuRoutes);
         width: calc(100% - $base-menu-width);
         left: $base-menu-width;
         top: 0px;
+        transition: all 0.3s;
+        &.fold_tab{ // &应该是同级的意思
+        left:60px;
+        width: calc(100% - 60px);
     }
+    }
+
 
     .layout_main {
         position: absolute;
@@ -69,10 +83,17 @@ console.log(useStore.menuRoutes);
         background: yellow;
         padding: 20px;
         overflow: auto;
+        transition: all 0.3s;
+        &.fold_main{
+        left:60px;
+        width: calc(100% - 60px);
     }
 
+    }
+
+
     .elmenu {
-        --el-menu-bg-color: #001529 border-right:none
+        border-right:none;
     }
 
     .el-menu-item:hover,

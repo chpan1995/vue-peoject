@@ -21,6 +21,9 @@
 
         <el-sub-menu :index="item.path" v-if="item.children && item.children.length > 1">
             <template #title>
+                <el-icon>
+                <component :is="item.meta.icon"></component>
+                </el-icon>
                 <span>{{ item.meta.title }}</span>
             </template>
             <Menu :menuList="item.children"></Menu>
@@ -40,7 +43,6 @@ let $useRouter=useRouter();
 // });
 // console.log(constantRoute)
 const goRouter = (vc: any) => {
-    console.log(vc.index);
     $useRouter.push(vc.index);
 }
 </script>
