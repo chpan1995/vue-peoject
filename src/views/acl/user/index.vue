@@ -1,5 +1,5 @@
 <template>
-    <P>user</P>
+    <p>user</p>
 </template>
 
 <script setup lang="ts">

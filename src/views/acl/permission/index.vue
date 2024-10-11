@@ -1,5 +1,5 @@
 <template>
-    <P>permisson</P>
+    <p>permisson</p>
 </template>
 
 <script setup lang="ts">

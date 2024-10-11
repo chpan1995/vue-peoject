@@ -8,8 +8,10 @@
             </el-menu>
         </div>
 
-        <div class="layout_tabbar"> </div>
-
+        <div class="layout_tabbar"> 
+            <tabbar></tabbar>
+        </div>
+            
         <!-- 内容展示区域 -->
         <div class="layout_main">
 
@@ -30,6 +32,7 @@
 import Logo from './logo/index.vue'
 import Menu from './menu/index.vue'
 import useSserStore from '@/store/modules/user'
+import tabbar from './tabbar/index.vue'
 import { useRoute } from 'vue-router';
 let $router=useRoute();
 let useStore = useSserStore();
@@ -54,8 +57,7 @@ console.log(useStore.menuRoutes);
         height: $base-tabbar-height;
         width: calc(100% - $base-menu-width);
         left: $base-menu-width;
-        background: cyan;
-        top: 0;
+        top: 0px;
     }
 
     .layout_main {
