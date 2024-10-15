@@ -97,4 +97,47 @@ export const constantRoute = [
       },
     ],
   },
+  {
+    path: '/product',
+    component: () => import('@/layout/index.vue'),
+    name: 'Product',
+    redirect:'/product/trademark',
+    meta: {
+      hidden: false,
+      title: '品牌',
+      icon: 'Lock',
+    },
+    children: [
+      {
+        path: '/product/trademark',
+        component: () => import('@/views/product/trademark/index.vue'),
+        name: 'Trademark',
+        meta: {
+          hidden: false,
+          title: '品牌管理',
+          icon: 'User',
+        },
+      },
+      {
+        path: '/product/sku',
+        component: () => import('@/views/product/sku/index.vue'),
+        name: 'Sku',
+        meta: {
+          hidden: false,
+          title: 'Sku管理',
+          icon: 'UserFilled',
+        },
+      },
+      {
+        path: '/product/spu',
+        component: () => import('@/views/product/spu/index.vue'),
+        name: 'Spu',
+        meta: {
+          hidden: false,
+          title: 'Sku管理',
+          icon: 'Monitor',
+        },
+      },
+    ],
+  },
 ]

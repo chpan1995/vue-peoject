@@ -89,7 +89,7 @@ watch(()=>SettingStore.refresh ,()=>{
         width: calc(100% - $base-menu-width); // width= padding + 真实width
         left: $base-menu-width;
         top: $base-tabbar-height;
-        background: yellow;
+        background: white;
         padding: 20px;
         overflow: auto;
         transition: all 0.3s;
