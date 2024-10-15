@@ -6,6 +6,7 @@ import { zhCn } from 'element-plus/es/locale/index.mjs';
 import '@/styles/index.scss'
 import router from '@/router'
 import store from './store';
+import '../permission.ts'
 
 const app = createApp(App);
 app.use(ElementPlus,{
@@ -41,7 +42,6 @@ function move(animal: Fish | Bird | Human) {
 }
 let fish:Fish = {
   swim:()=>{
-    console.log('11111');
   }
 }
 move(fish);

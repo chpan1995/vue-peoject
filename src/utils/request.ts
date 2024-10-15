@@ -1,18 +1,23 @@
 import axios from "axios";
-import {ElMessage} from 'element-plus'
+import { ElMessage } from 'element-plus'
+import  useSserStore  from '@/store/modules/user.ts'
 
 let request = axios.create({
-    baseURL:import.meta.env.VITE_APP_BASE_API,
-    timeout:5000
+    baseURL: import.meta.env.VITE_APP_BASE_API,
+    timeout: 5000
 });
 
-request.interceptors.request.use((config)=>{
-  return config;  
+request.interceptors.request.use((config) => {
+    let useStore = useSserStore();
+    if (useStore.token) {
+        config.headers.token = useStore.token;
+    }
+    return config;
 })
 
-request.interceptors.response.use( (response)=>{
+request.interceptors.response.use((response) => {
     return response.data;
-},(error)=>{
+}, (error) => {
     //处理网络错误
     let msg = '';
     let status = error.response.status;

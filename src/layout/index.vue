@@ -1,6 +1,6 @@
 <template>
     <div class="layout_container">
-        <div class="layout_slider" :class="{fold: SettingStore.fold}">
+        <div class="layout_slider">
             <Logo></Logo>
             <!-- el-menu 包在里面递归后应该是两个el-menu le -->
             <el-menu :collapse="SettingStore.fold" :default-active="$router.path" background-color="#001529"
@@ -19,7 +19,7 @@
             <router-view v-slot="{ Component }">
                 <transition name="fade">
                     <!-- 渲染layout一级路由的子路由 -->
-                    <component :is="Component" />
+                    <component :is="Component" v-if="!fresh" />
                 </transition>
             </router-view>
         </div>
@@ -36,13 +36,22 @@ import useSserStore from '@/store/modules/user'
 import tabbar from './tabbar/index.vue'
 import { useRoute } from 'vue-router';
 import  useLayOutSettingStore  from '@/store/modules/setting.ts'
+import { ref,watch,nextTick } from 'vue'
+
+let fresh = ref(false);
 
 let $router=useRoute();
 let useStore = useSserStore();
 let SettingStore = useLayOutSettingStore();
 
-</script>
+watch(()=>SettingStore.refresh ,()=>{
+    fresh.value=true;
+    nextTick(()=>{
+        fresh.value=false
+    });
+})
 
+</script>
 
 
 <style lang="scss">

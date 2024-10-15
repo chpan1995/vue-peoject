@@ -14,22 +14,22 @@
         </div>
 
         <div class="tabbar_right">
-            <el-button icon="Refresh" circle></el-button>
-            <el-button icon="FullScreen" circle></el-button>
+            <el-button icon="Refresh" circle @click="fresh"></el-button>
+            <el-button icon="FullScreen" circle @click="fullScreen"></el-button>
             <el-button icon="Setting" circle></el-button>
 
-            <img src="/logo.png" style="width: 40px;height: 40px; margin-left: 20px; margin-right: 5px;">
+            <img :src="userStore.avatar" style="width: 40px;height: 40px; margin-left: 20px; margin-right: 5px;">
 
             <el-dropdown trigger="click">
                 <span class="el-dropdown-link">
-                    系统设置
+                    {{userStore.username}}
                     <el-icon class="el-icon--right">
                         <arrow-down />
                     </el-icon>
                 </span>
                 <template #dropdown>
                     <el-dropdown-menu>
-                        <el-dropdown-item>退出登录</el-dropdown-item>
+                        <el-dropdown-item aria-disabled="false" @click="logout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
@@ -40,14 +40,40 @@
 
 <script setup lang="ts">
 import { Expand, Refresh, FullScreen, Setting, ArrowRight, Fold } from '@element-plus/icons-vue';
-import { useRoute } from 'vue-router'
+import { useRoute,useRouter } from 'vue-router'
 import useLayOutSettingStore from '@/store/modules/setting.ts'
+import  useSserStore from '@/store/modules/user.ts'
 
 let SettingStore = useLayOutSettingStore();
 let $useRoute = useRoute();
+let $useRouter = useRouter();
+let userStore = useSserStore();
 
 let expandOr = () => {
     SettingStore.fold = !SettingStore.fold
+}
+
+const fresh=()=>{
+    SettingStore.refresh = !SettingStore.refresh
+}
+
+const fullScreen = () =>{
+    if(document.fullscreenElement) {
+        document.exitFullscreen();
+    }else {
+        document.documentElement.requestFullscreen();
+    }
+   
+}
+
+const logout = async()=> {
+    try {
+        await userStore.userLogout();
+        $useRouter.push({path:'/login',query:{redirect:$useRoute.path}});
+    } catch (error:any) {
+        console.log(error.message);
+    }
+   
 }
 
 </script>

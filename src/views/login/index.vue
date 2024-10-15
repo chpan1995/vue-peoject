@@ -31,11 +31,12 @@
 import { User, Lock } from '@element-plus/icons-vue';
 import { reactive,ref } from 'vue';
 import  useSserStore  from '@/store/modules/user'
-import {useRouter} from 'vue-router'
+import {useRouter,useRoute} from 'vue-router'
 import { ElNotification,FormRules } from 'element-plus';
 import { getTime } from '@/utils/time'
 
 let $useRouter=useRouter();
+let $useRoute=useRoute();
 let loading=ref(false);
 let useStore = useSserStore();
 
@@ -46,7 +47,6 @@ let loginForm = reactive({
 
 const validatePass = (rule: any, value: any, callback: any) => {
     // if (/^d{5,10}$/.test(value)) {
-    console.log(value);
     if (typeof value === 'string' && value.length >= 5) {
     callback()
   } else {
@@ -68,7 +68,8 @@ async function login(){
     loading.value=true
     try {
        await useStore.userLogin(loginForm);
-       $useRouter.push('/');
+       let redirect:any = $useRoute.query.redirect
+       $useRouter.push({path: redirect || '/'});
        ElNotification({
             type:'success',
             message:'登录成功',

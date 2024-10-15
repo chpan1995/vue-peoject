@@ -59,8 +59,10 @@ export default [
             const checkUser = createUserList().find((item) => item.token === token)
             //没有返回失败的信息
             if (!checkUser) {
+                console.log("/api/user/info");
                 return { code: 201, data: { message: '获取用户信息失败' } }
             }
+            console.log("/api/user/info");
             //如果有返回成功信息
             return { code: 200, data: {checkUser} }
         },
