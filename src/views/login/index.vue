@@ -109,7 +109,7 @@ async function login(){
         width: 60%;
         top: 30vh;
         background-size: cover;
-        background: url('@/assets/images/login_form.png') no-repeat;
+        background-image: url('@/assets/images/login_form.png');
         padding: 40px;
 
 
