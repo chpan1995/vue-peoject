@@ -27,7 +27,6 @@ router.beforeEach(async (to: any, from: any, next: any) => {
     } else {
       //登陆成功访问其余的，放行
       //有用户信息
-      console.log(1111);
       if (username) {
         //放行
         next()

@@ -119,6 +119,16 @@ export const constantRoute = [
         },
       },
       {
+        path: '/product/attr',
+        component: () => import('@/views/product/attr/index.vue'),
+        name: 'Attr',
+        meta: {
+          hidden: false,
+          title: '属性管理',
+          icon: 'HomeFilled',
+        },
+      },
+      {
         path: '/product/sku',
         component: () => import('@/views/product/sku/index.vue'),
         name: 'Sku',
@@ -134,7 +144,7 @@ export const constantRoute = [
         name: 'Spu',
         meta: {
           hidden: false,
-          title: 'Sku管理',
+          title: 'Spu管理',
           icon: 'Monitor',
         },
       },

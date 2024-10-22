@@ -1,9 +1,10 @@
 <template>
-  <h>sku</h>
+    <h1>sku</h1>
 </template>
 
 <script setup lang="ts">
 
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+</style>

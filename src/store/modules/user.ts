@@ -19,7 +19,6 @@ const useSserStore = defineStore('User',
             async userLogin(data: loginForm) {
                 
                 let result:any = await reqlogin(data);
-                console.log(result);
                 if (result.code == 200) {
                     this.token=result.data;
                     localStorage.setItem('TOKEN',result.data);
@@ -30,7 +29,6 @@ const useSserStore = defineStore('User',
             },
             async userInfo(){
                 let result = await reqUserinfo();
-                console.log(result);
                 if (result.code == 200) { 
                     this.username=result.data.name;
                     this.avatar=result.data.avatar;

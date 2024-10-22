@@ -20,7 +20,7 @@ request.interceptors.response.use((response) => {
 }, (error) => {
     //处理网络错误
     let msg = '';
-    let status = error.response.status;
+    let status = error.response?.status;
     switch (status) {
         case 401:
             msg = "token过期";
