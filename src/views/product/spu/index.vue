@@ -3,7 +3,7 @@
     <Category></Category>
     <el-card>
       <div v-show="scene === 0 ? true : false">
-        <el-button type="primary" icon="Plus">添加SPU</el-button>
+        <el-button @click="addSpu" type="primary" icon="Plus">添加SPU</el-button>
         <el-table border style="margin-top: 20px;" :data="records">
           <el-table-column label="序号" type="index"></el-table-column>
           <el-table-column label="SPU名称" prop="spuName">
@@ -33,7 +33,7 @@
       </div>
 
       <div v-show="scene === 2 ? true : false">
-
+        <spuForm ref="sku" @changeScene="changeScene"></spuForm>
       </div>
 
     </el-card>
@@ -58,6 +58,7 @@ let total = ref<number>(0);
 let scene = ref<number>(0);
 
 let spu = ref<any>();
+let sku = ref<any>();
 
 let categoryStore = useCategoryStore();
 
@@ -103,6 +104,15 @@ const changeScene = (obj: any) => {
         getHasSpu();
     }
 }
+
+//添加新的SPU按钮的回调
+const addSpu = () => {
+    //切换为场景1:添加与修改已有SPU结构->SpuForm
+    scene.value = 2;
+    //点击添加SPU按钮,调用子组件的方法初始化数据
+    sku.value.initAddSpu(categoryStore.c3Id);
+}
+
 </script>
 
 <style lang="scss"></style>
